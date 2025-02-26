@@ -1,22 +1,35 @@
 package com.hoaxify.ws.User;
 
+import com.hoaxify.ws.User.validation.UniqueEmail;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="Users")
+@Table(name="Users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 
     @Id
     @GeneratedValue
     long id;
 
+    @NotBlank
+    @Size(min = 4, max = 255)
     String username;
 
+    @NotBlank
+    @Email
+    @UniqueEmail
     String email;
 
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")
     String password;
 
     public long getId() {
