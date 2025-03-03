@@ -20,7 +20,7 @@ public class User {
     @GeneratedValue
     long id;
 
-    @NotBlank
+    @NotBlank(message = "{hoaxify.constraint.username.notblank}")
     @Size(min = 4, max = 255)
     String username;
 
@@ -29,7 +29,7 @@ public class User {
     @UniqueEmail
     String email;
 
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{hoaxify.constraint.password.pattern}")
     String password;
 
     public long getId() {
